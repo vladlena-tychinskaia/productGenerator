@@ -1,0 +1,201 @@
+body {
+  background-color: #f5f7f8;
+  font-family: "Syne", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block {
+  width: 33.33%;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+  position: relative; 
+}
+
+.block-content {
+  margin-right: 20px; 
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  margin-right: 10px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  flex-grow: 1;
+
+  background-color: #f5f7f8;
+  border-radius: 15px;
+  border: none;
+  height: 50px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.dropdown-menu {
+  flex-grow: 1;
+  background-color: #f5f7f8;
+  border-radius: 15px;
+  border: none;
+  height: 50px;
+  padding: 0 10px;
+  box-sizing: border-box; 
+}
+
+
+
+.form-group input:focus {
+  outline: none;
+}
+
+.form-group input:focus {
+  box-shadow: 0 0 4px #275ce0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  background-color: #275ce0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#resultContainer {
+  margin-top: 20px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #275ce0;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #275ce0;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-group .switch {
+  margin-left: 10px;
+}
+
+select:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.message {
+  position: absolute;
+  color: red;
+}
+
+#productError {
+  position: absolute;
+  color: red;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner.active {
+  border-color: #ccc;
+  border-top-color: #ccc;
+}
+
+
+
+
+	
+
+
+
+
