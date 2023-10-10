@@ -1,48 +1,62 @@
 body {
   background-color: #f5f7f8;
-  font-family: "Syne", sans-serif;
+  font-family: 'Syne', sans-serif;
 }
 
 .container {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(0.85);
+  width: 100%; */
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: scale(0.85);
+  width: 60%;
+  min-width: 960px;
+  max-width: 1600px;
+  margin: 0 auto;
+
 }
 
 .block {
-  width: 33.33%;
+  width: 44.33%;
   background-color: #ffffff;
   border-radius: 15px;
   padding: 20px;
   margin: 20px;
-  position: relative; 
+  position: relative;
 }
 
 .block-content {
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 .form-group {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .form-group label {
   margin-right: 10px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"] {
-  flex-grow: 1;
-
+.form-group input[type='text'],
+.form-group input[type='number'] {
   background-color: #f5f7f8;
   border-radius: 15px;
   border: none;
   height: 50px;
   padding: 0 10px;
-  margin-bottom: 10px;
+  display: flex;
   box-sizing: border-box;
+  margin-left: auto;
+  width: 79%;
+  font-size: 12px;
 }
 
 .dropdown-menu {
@@ -52,10 +66,8 @@ body {
   border: none;
   height: 50px;
   padding: 0 10px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
-
-
 
 .form-group input:focus {
   outline: none;
@@ -65,6 +77,18 @@ body {
   box-shadow: 0 0 4px #275ce0;
 }
 
+/* .form-group input:invalid {
+  box-shadow: 0 0 3px #f62d2d;
+} */
+
+.checkbox-container {
+  display: flex;
+}
+
+.randomToggle {
+  margin-right: 15px;
+}
+
 .btn {
   padding: 10px 20px;
   border: none;
@@ -72,6 +96,25 @@ body {
   background-color: #275ce0;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.btn:hover {
+  background-color: #4976ea;
+}
+
+.btn:active {
+  background-color: #275ce0;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.savebtn {
+  margin-left: 10px;
 }
 
 #resultContainer {
@@ -109,7 +152,7 @@ body {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 16px;
   width: 16px;
   left: 4px;
@@ -147,10 +190,6 @@ input:checked + .slider:before {
   align-items: center;
 }
 
-.toggle-group .switch {
-  margin-left: 10px;
-}
-
 select:disabled {
   background-color: #ddd;
   cursor: not-allowed;
@@ -159,11 +198,11 @@ select:disabled {
 .message {
   position: absolute;
   color: red;
+  font-size: 12px;
 }
 
-#productError {
-  position: absolute;
-  color: red;
+.categoriesMessage {
+  color: red; 
 }
 
 .spinner {
@@ -174,7 +213,7 @@ select:disabled {
   border-top: 2px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 @keyframes spin {
@@ -191,11 +230,49 @@ select:disabled {
   border-top-color: #ccc;
 }
 
+.form-group.category-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+}
 
+.form-group.category-block > div:first-child {
+  margin-bottom: 5px;
+}
 
+.toggle-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  width: 100%;
+}
 
-	
+.toggle-group label {
+  font-size: 14px; 
+}
 
+.toggle-group .switch {
+  margin-left: auto;
+}
 
+.catergory-checkbox {
+  margin-right: 10px;
+}
 
+#categoriesCheckboxGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 11px 0px;
+}
 
+#categoriesCheckboxGroup label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.or {
+  align-content: center;
+}

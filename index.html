@@ -8,6 +8,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <div class="container">
       <h1>Product Generator</h1>
@@ -22,7 +23,7 @@
           <input
             type="text"
             id="sandboxInput"
-            value="vtstable"
+            value=""
             class="form-control"
             placeholder="Enter Sandbox Name"
             required
@@ -30,7 +31,7 @@
         </div>
 
         <div class="form-group">
-          <span class="message"></span>
+          <span class="sandboxMessage message"></span>
         </div>
 
         <div class="form-group">
@@ -38,7 +39,7 @@
           <input
             type="text"
             id="sidInput"
-            value="201391052"
+            value=""
             class="form-control"
             placeholder="Enter SID"
             required
@@ -46,16 +47,15 @@
         </div>
 
         <div class="form-group">
-          <span class="message"></span>
+          <span class="sidMessage message"></span>
         </div>
-      
 
         <div class="form-group">
           <label for="tokenInput" class="placeholder">* Token:</label>
           <input
             type="text"
             id="tokenInput"
-            value="secret_k56WWmbCVYqpUBkDvPzqD6wWqjJG3F5A"
+            value=""
             class="form-control"
             placeholder="Enter Token"
             required
@@ -63,11 +63,9 @@
         </div>
 
         <div class="form-group">
-          <span class="message"></span>
+          <span class="tokenMessage message"></span>
         </div>
-
       </div>
-
 
       <div class="block">
         <div class="block-header">
@@ -83,7 +81,8 @@
               <span class="slider round"></span>
             </label>
           </div>
-
+        </div>
+        <div class="form-group">
           <div class="toggle-group">
             <label for="unlimitedToggle">Unlimited:</label>
             <!-- Rounded switch -->
@@ -95,23 +94,32 @@
         </div>
 
         <div class="form-group">
-          <label for="productInput" class="placeholder">* Total:</label>
+          <div class="toggle-group">
+            <label for="randomToggle" class="randomToggle"
+              >Random Enabled/Unlimited:</label
+            >
+            <!-- Rounded switch -->
+            <label class="switch">
+              <input type="checkbox" id="randomToggle" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productInput" class="placeholder">Total:</label>
           <input
             type="number"
             id="productInput"
             class="form-control"
-            placeholder="Enter Total number of Products to create"
-            min="1"
-            pattern="^[1-9]\d*$"
-            required
-          /> 
+            placeholder="Enter product creation count or leave it empty for random"
+          />
         </div>
 
         <div class="form-group">
-          <span class="message"></span>
+          <span class="totalMessage message"></span>
           <span id="productError" class="error"></span>
         </div>
-    
 
         <div class="form-group">
           <label for="quantityInput" class="placeholder">Quantity:</label>
@@ -123,7 +131,6 @@
             min="0"
           />
         </div>
-    
 
         <div class="form-group">
           <label for="priceInput" class="placeholder">Price:</label>
@@ -136,9 +143,7 @@
             step="any"
           />
         </div>
-    </div>
-
-
+      </div>
 
       <div class="block">
         <div class="block-header">
@@ -150,7 +155,7 @@
             <label for="optionsInput">Options:</label>
             <!-- Rounded switch -->
             <label class="switch">
-              <input type="checkbox" id="optionsToggle"/>
+              <input type="checkbox" id="optionsToggle" />
               <span class="slider round"></span>
             </label>
           </div>
@@ -159,154 +164,230 @@
             <label for="variationsInput">Variations:</label>
             <!-- Rounded switch -->
             <label class="switch">
-              <input type="checkbox" id="variationsToggle" disabled/>
+              <input type="checkbox" id="variationsToggle" disabled />
               <span class="slider round"></span>
             </label>
           </div>
         </div>
       </div>
-      
+
       <div class="block">
         <div class="block-header">
-         <h3>Category:</h3>
+          <h3>Category:</h3>
         </div>
 
-          <div class="form-group">
-            <div class="toggle-group">
-              <label for="categoryInput">OFF: add to default</label>
-              <!-- Rounded switch -->
-              <label class="switch">
-                <input type="checkbox" id="categoryToggle" />
-                <span class="slider round"></span>
-              </label>
-            </div>
+        <div class="form-group">
+          <div class="toggle-group">
+            <label for="categoryInput"
+              >When toggle is off, products will be displayed on the store front page</label
+            >
+            <!-- Rounded switch -->
+            <label class="switch">
+              <input type="checkbox" id="categoryToggle" />
+              <span class="slider round"></span>
+            </label>
+          </div>
         </div>
 
-        <div class="form-group category-block" style="display: none;">
-          <input
-            type="text"
-            id="categoryNameInput"
-            class="form-control"
-            placeholder="Name"
-          />
-          <label for="categoryButton" class="placeholder"></label>
-          <button id="categoryButton" class="btn btn-primary">
-            Create Category
-          </button>
-        </div>
+        <div class="form-group category-block" style="display: none">
+          <div>...or add products to categories:</div>
+          <div class="categoriesMessage" style="display: none">
+            there are no created categories in the store
+          </div>
+          <div id="categoriesCheckboxGroup"></div>
 
-        <div class="form-group category-block" style="display: none;">
-          <div id="categoriesCheckboxGroup">Выбери категории:</div>
+          <div class="toggle-group">
+            <label for="customCategoryInput">add new category</label>
+            <input 
+            type="text" 
+            id="customCategoryInput"
+            placeholder="Enter category name" 
+            />
+            <button class="btn savebtn" id="saveCategory">Save</button>
+          </div>
         </div>
-    </div>
-
+      </div>
 
       <div class="block">
         <button id="generateButton" class="btn btn-primary">
-          <span id="spinner" class="spinner" style="display: none;"></span>
+          <span id="spinner" class="spinner" style="display: none"></span>
           Generate Products
         </button>
         <div id="resultContainer" class="mt-4"></div>
       </div>
     </div>
-  
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+      
+      //random name array    
+      const ANIMALS = [
+            'Cat', 'Dog', 'Elephant', 'Lion', 'Tiger', 'Giraffe', 'Monkey', 'Kangaroo', 'Penguin', 'Hippo',
+            'Snake', 'Gorilla', 'Zebra', 'Koala', 'Crocodile', 'Panda', 'Ostrich', 'Squirrel', 'Raccoon', 'Octopus',
+            'Dolphin', 'Camel', 'Giraffe', 'Kangaroo', 'Jaguar', 'Koala', 'Llama', 'Meerkat', 'Narwhal', 'Ocelot',
+            'Penguin', 'Quokka', 'Raccoon', 'Sloth', 'Toucan', 'Unicorn', 'Vulture', 'Walrus', 'Xerus', 'Yak', 'Zebra',
+            'Armadillo', 'Baboon', 'Cheetah', 'Dingo', 'Emu', 'Flamingo', 'Gazelle', 'Hedgehog', 'Iguana', 'Jellyfish',
+            'Koala', 'Lion', 'Moose', 'Narwhal', 'Ostrich', 'Panda', 'Quokka', 'Rhinoceros', 'Sloth', 'Turtle', 'Uakari',
+            'Vulture', 'Walrus', 'X-ray Fish', 'Yak', 'Zebra', 'Antelope', 'Bison', 'Crab', 'Duck', 'Elephant', 'Frog',
+            'Gorilla', 'Hippopotamus', 'Iguana', 'Jaguar', 'Kangaroo', 'Llama', 'Mouse', 'Newt', 'Octopus', 'Penguin',
+            'Quail', 'Raccoon', 'Snail', 'Tiger', 'Umbrellabird', 'Vulture', 'Walrus', 'X-ray Tetra', 'Yak', 'Zebra'
+          ];
+
+      const ADJECTIVES = [
+            'Crazy', 'Silly', 'Funny', 'Cheeky', 'Quirky', 'Playful', 'Goofy', 'Mischievous', 'Zany', 'Whimsical',
+            'Bouncy', 'Wacky', 'Jolly', 'Lively', 'Eccentric', 'Bubbly', 'Kooky', 'Hilarious', 'Ludicrous', 'Outlandish',
+            'Spunky', 'Zany', 'Spirited', 'Zippy', 'Bonkers', 'Nutty', 'Daffy', 'Offbeat', 'Far-out', 'Absurd', 'Amusing',
+            'Comical', 'Droll', 'Entertaining', 'Farcical', 'Humorous', 'Lighthearted', 'Whacky', 'Ridiculous', 'Surreal',
+            'Quixotic', 'Far-fetched', 'Curious', 'Oddball', 'Riotous', 'Hysterical', 'Peculiar', 'Unconventional',
+            'Off-the-wall', 'Madcap', 'Eccentric', 'Giddy', 'Daft', 'Zesty', 'Flamboyant', 'Lunatic', 'Off-center',
+            'Off-the-wall', 'Unusual', 'Uproarious', 'Hysterical', 'Waggish', 'Zingy', 'Gleeful', 'Larky', 'Merry', 'Zippy',
+            'Giggly', 'Witty', 'Mad', 'Rib-tickling', 'Ticklish', 'Zingy', 'Quizzical', 'Rambunctious', 'Saucy', 'Screwball',
+            'Silly', 'Amusing', 'Wacky', 'Hilarious', 'Jocose', 'Zany', 'Mirthful', 'Nutty', 'Whimsical', 'Puckish', 'Kooky',
+            'Laughable', 'Risible', 'Sportive', 'Side-splitting', 'Riotous', 'Hysterical', 'Absurd', 'Jocular', 'Humorous',
+            'Comic', 'Farcical', 'Ludicrous'
+          ];
+
+      //helper for rndm toggle
+      function getRandomTrueFalse() {
+        return Math.random() >= 0.5;
+      }
+
+      //variations
       function createVariation(productId, randomOptions) {
-      const headers = {
-            'Content-Type': 'application/json',
-          };
-      const sandbox = $('#sandboxInput').val();
-      const sid = $('#sidInput').val();
-      const token = $('#tokenInput').val();
-      const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/products/' + productId + '/combinations?token=' + token;
-      var productVariations = {
-        "options": []
-      }
-      for (let n = 0; n < randomOptions.length; n++) {
-        productVariations.options.push(
-          {
+        const headers = {
+              'Content-Type': 'application/json',
+              'X-Ecwid-Stresstest': 'Y4xvp0EOb50'
+            };
+        const sandbox = $('#sandboxInput').val();
+        const sid = $('#sidInput').val();
+        const token = $('#tokenInput').val();
+        const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/products/' + productId + '/combinations?token=' + token;
+        const productVariations = {
+          options: [],
+        };
+
+        for (let n = 0; n < randomOptions.length; n++) {
+          productVariations.options.push({
             name: randomOptions[n].name,
-            value: randomOptions[n].choices[Math.floor(Math.random() * randomOptions[n].choices.length)].text
-          }
-        )
-      }
-            $.ajax({
-              url: url,
-              type: 'POST',
-              headers: headers,
-              data: JSON.stringify(productVariations),
-              success: function (response) {
-                $('#resultContainer').append(
-                  '<p>Product variations added successfully with ID:' +
-                    response.id +
-                    '</p>',
-                );
-              },
-              error: function (error) {
-                $('#resultContainer').append(
-                  '<p>Error adding product variation: ' +
-                    error.responseJSON.errorMessage +
-                    '</p>',
-                );
-              },
-            });
-          }
-    </script>
-    <script>
-
-          const sandbox = $('#sandboxInput').val();
-          const sid = $('#sidInput').val();
-          const token = $('#tokenInput').val();
-
-      // проверка какие категории есть и отображение их 
-      function getCategories() { 
-      const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/categories?token=' + token; // `https://app.ecwid.com/api/v3/${sid}/categories`;
-
-      $.ajax({
-        url: url,
-        type: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        success: function (result) {
-          if (result.items.length > 0) {
-            const categories = result.items;
-
-            // Очистка группы чекбоксов
-            $('#categoriesCheckboxGroup').empty();
-
-            // Создание чекбокса для каждой категории
-            categories.forEach(function (category) {
-              const checkbox = `<input type="checkbox" name="category" value="${category.id}" id="${category.id}" />
-                                <label for="${category.id}">${category.name}</label><br>`;
-              $('#categoriesCheckboxGroup').append(checkbox);
-            });
-
-            // Отображение группы чекбоксов
-            $('.category-block').show();
-          }
-        },
-        error: function (error) {
-          console.log('Error retrieving categories:', error);
+            value:
+              randomOptions[n].choices[
+                Math.floor(Math.random() * randomOptions[n].choices.length)
+              ].text,
+          });
         }
-      });
-    }
+                      
+        $.ajax({
+          url: url,
+          type: 'POST',
+          headers: headers,
+          data: JSON.stringify(productVariations),
+          success: function (response) {
+            $('#resultContainer').append();
+           // console.log(response);
+          },
+          error: function (error) {
+            $('#resultContainer').append(
+              '<p>Error adding product variation: ' +
+                error.responseJSON.errorMessage +
+                '</p>'
+            );
+          },
+        });
+      }
 
       $(document).ready(function () {
 
+        $('#randomToggle').change(function () {
+          if (this.checked) {
+            $('#unlimitedToggle').prop('checked', false);
+            $('#unlimitedToggle').prop('disabled', true);
 
+            $('#enabledToggle').prop('checked', false);
+            $('#enabledToggle').prop('disabled', true);
+          } else {
+            $('#unlimitedToggle').prop('disabled', false);
+            $('#enabledToggle').prop('disabled', false);
+          }
+        });
+
+        //categories
         $('#categoryToggle').change(function () {
           if (this.checked) {
             $('.category-block').show();
+
             getCategories();
           } else {
             $('.category-block').hide();
           }
         });
 
+        function createCategory(categoryName) {
+          const sandbox = $('#sandboxInput').val();
+          const sid = $('#sidInput').val();
+          const token = $('#tokenInput').val();
+          const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/categories?token=' + token;
 
+          const customCategoryInputVal = $('#customCategoryInput').val();
+
+            $.ajax({
+            url: url,
+            type: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Ecwid-Stresstest': 'Y4xvp0EOb50'
+            },
+            data: JSON.stringify({
+              name: customCategoryInputVal,
+            }),
+            error: function (error) {
+              console.log('Error retrieving categories:', error);
+            },
+          }).done(() => {
+            getCategories();
+          });
+      }
+
+        // get categories
+        function getCategories() {
+          const sandbox = $('#sandboxInput').val();
+          const sid = $('#sidInput').val();
+          const token = $('#tokenInput').val();
+          const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/categories?token=' + token;
+
+            $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Ecwid-Stresstest': 'Y4xvp0EOb50'
+            },
+            success: function (result) {
+              const categories = result.items;
+
+              if (categories.length === 0) {
+                $('.categoriesMessage').show();
+                return;
+              } else {
+                $('.categoriesMessage').hide();
+              }
+
+              // checkbox for categories
+              $('#categoriesCheckboxGroup').empty();
+              categories.forEach(function (category) {
+                const checkbox = `<div class="checkbox-container"><input class="catergory-checkbox" type="checkbox" name="category" value="${category.id}" id="${category.id}" />
+                                  <label for="${category.id}">${category.name}</label></div>`;
+                $('#categoriesCheckboxGroup').append(checkbox);
+              });
+              $('.category-block').show();
+            },
+
+            error: function (error) {
+              console.log('Error retrieving categories:', error);
+            },
+          });
+        }
+
+        // variations/options toggle
         $('#optionsToggle').change(function () {
           if (this.checked) {
             $('#variationsToggle').prop('disabled', false);
@@ -316,279 +397,282 @@
           }
         });
 
-        $('#generateButton').click(function () {
-          
+        $('#saveCategory').on('click', createCategory);
+
+        $('#generateButton').on('click', function () {
           const sandbox = $('#sandboxInput').val();
           const sid = $('#sidInput').val();
           const token = $('#tokenInput').val();
           const totalProductToCreate = $('#productInput').val();
           const categoryName = $('#categoryNameInput').val();
           const optionsToggle = $('#optionsToggle').is(':checked');
+          const variationsToggle = $('#variationsToggle').is(':checked');
+          const checkedCategories = $('.category-checkbox:checked');
+          
+          // required fields
+          if (sandbox === '') {
+            $('.sandboxMessage').text('Field is required');
+            $('.sandboxMessage').show();
+          } else {
+            $('.sandboxMessage').hide();
+          }
 
-           // Проверка на заполнение всех обязательных полей
-            if (sandbox === "" || sid === "" || token === "" || totalProductToCreate === "") {
-              $('.message').text("Field is required");
-              $('.message').show();
-              return;
-            } else {
-                 $('.message').hide();
-            }
+          if (sid === '') {
+            $('.sidMessage').text('Field is required');
+            $('.sidMessage').show();
+          } else {
+            $('.sidMessage').hide();
+          }
 
-            let spinner = $('#spinner');
-            spinner.show();
+          if (token === '') {
+            $('.tokenMessage').text('Field is required');
+            $('.tokenMessage').show();
+          } else {
+            $('.tokenMessage').hide();
+          }
+
+          if ([sandbox, sid, token].includes('')) {
+            $('.message:visible').get(0).scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'center',
+            });
+            return;
+          }
+
+          $('#spinner').show();
 
           const url = 'https://app' + sandbox + '.ecwid.qa/api/v3/' + sid + '/products?token=' + token;
           const headers = {
-            'Content-Type': 'application/json',
-          };
+              'Content-Type': 'application/json',
+              'X-Ecwid-Stresstest': 'Y4xvp0EOb50'
+            };
 
-          let count = 0;
+          function prepareValue() {
 
-          for (let i = 0; i < totalProductToCreate; i++) { //рандом для названия продукта
-            const animals = [
-              'Cat', 'Dog', 'Elephant', 'Lion', 'Tiger', 'Giraffe', 'Monkey', 'Kangaroo', 'Penguin', 'Hippo',
-              'Snake', 'Gorilla', 'Zebra', 'Koala', 'Crocodile', 'Panda', 'Ostrich', 'Squirrel', 'Raccoon', 'Octopus',
-              'Dolphin', 'Camel', 'Giraffe', 'Kangaroo', 'Jaguar', 'Koala', 'Llama', 'Meerkat', 'Narwhal', 'Ocelot',
-              'Penguin', 'Quokka', 'Raccoon', 'Sloth', 'Toucan', 'Unicorn', 'Vulture', 'Walrus', 'Xerus', 'Yak', 'Zebra',
-              'Armadillo', 'Baboon', 'Cheetah', 'Dingo', 'Emu', 'Flamingo', 'Gazelle', 'Hedgehog', 'Iguana', 'Jellyfish',
-              'Koala', 'Lion', 'Moose', 'Narwhal', 'Ostrich', 'Panda', 'Quokka', 'Rhinoceros', 'Sloth', 'Turtle', 'Uakari',
-              'Vulture', 'Walrus', 'X-ray Fish', 'Yak', 'Zebra', 'Antelope', 'Bison', 'Crab', 'Duck', 'Elephant', 'Frog',
-              'Gorilla', 'Hippopotamus', 'Iguana', 'Jaguar', 'Kangaroo', 'Llama', 'Mouse', 'Newt', 'Octopus', 'Penguin',
-              'Quail', 'Raccoon', 'Snail', 'Tiger', 'Umbrellabird', 'Vulture', 'Walrus', 'X-ray Tetra', 'Yak', 'Zebra'
-            ];
-
-            const adjectives = [
-              'Crazy', 'Silly', 'Funny', 'Cheeky', 'Quirky', 'Playful', 'Goofy', 'Mischievous', 'Zany', 'Whimsical',
-              'Bouncy', 'Wacky', 'Jolly', 'Lively', 'Eccentric', 'Bubbly', 'Kooky', 'Hilarious', 'Ludicrous', 'Outlandish',
-              'Spunky', 'Zany', 'Spirited', 'Zippy', 'Bonkers', 'Nutty', 'Daffy', 'Offbeat', 'Far-out', 'Absurd', 'Amusing',
-              'Comical', 'Droll', 'Entertaining', 'Farcical', 'Humorous', 'Lighthearted', 'Whacky', 'Ridiculous', 'Surreal',
-              'Quixotic', 'Far-fetched', 'Curious', 'Oddball', 'Riotous', 'Hysterical', 'Peculiar', 'Unconventional',
-              'Off-the-wall', 'Madcap', 'Eccentric', 'Giddy', 'Daft', 'Zesty', 'Flamboyant', 'Lunatic', 'Off-center',
-              'Off-the-wall', 'Unusual', 'Uproarious', 'Hysterical', 'Waggish', 'Zingy', 'Gleeful', 'Larky', 'Merry', 'Zippy',
-              'Giggly', 'Witty', 'Mad', 'Rib-tickling', 'Ticklish', 'Zingy', 'Quizzical', 'Rambunctious', 'Saucy', 'Screwball',
-              'Silly', 'Amusing', 'Wacky', 'Hilarious', 'Jocose', 'Zany', 'Mirthful', 'Nutty', 'Whimsical', 'Puckish', 'Kooky',
-              'Laughable', 'Risible', 'Sportive', 'Side-splitting', 'Riotous', 'Hysterical', 'Absurd', 'Jocular', 'Humorous',
-              'Comic', 'Farcical', 'Ludicrous'
-            ];
-            
-            const adjectivesIndex = Math.floor(Math.random() * adjectives.length);
-            const animalIndex = Math.floor(Math.random() * animals.length);
-
-            const animalName = animals[animalIndex];
-            const adjectivesName = adjectives[adjectivesIndex];
-
+            const adjectivesIndex = Math.floor(Math.random() * ADJECTIVES.length);
+            const animalIndex = Math.floor(Math.random() * ANIMALS.length);
+            const animalName = ANIMALS[animalIndex];
+            const adjectivesName = ADJECTIVES[adjectivesIndex];
             const name = adjectivesName + ' ' + animalName;
+            const categoryIds = [];
+            const categoryToggle = $('#categoryToggle').is(':checked');
+            if (categoryToggle) {
+              const categoriesCheckboxGroup = $(
+                '#categoriesCheckboxGroup'
+              ).find('input');
 
-            const weight = parseFloat( //вес продукта
-              (Math.random() * 100).toFixed(1),
-            );
+              for (let i = 0; i < categoriesCheckboxGroup.length; i++) {
+                if (categoriesCheckboxGroup[i].checked) {
+                  categoryIds.push(Number(categoriesCheckboxGroup[i].id)); 
+                }
+              }
+            }
 
-            const dimensions = { //размеры продукта 
+            const weight = parseFloat((Math.random() * 10).toFixed(1));
+            const dimensions = {
               height: parseInt(Math.floor(Math.random() * 100 + 1)),
               width: parseInt(Math.floor(Math.random() * 100 + 1)),
               length: parseInt(Math.floor(Math.random() * 100 + 1)),
             };
 
-            let priceInput = $('#priceInput').val(); //рандом для цены
-
-              if (priceInput !== '') {
-                priceInput = parseFloat(priceInput);
-              } else {
-                priceInput = parseFloat((Math.random() * 100 + 1).toFixed(2));
-              }
-
-
-            
-            const enabledToggle = $('#enabledToggle').is(':checked'); //тоглы enabled и unlimited
+            // enabled / unlimited
+            const enabledToggle = $('#enabledToggle').is(':checked');
+            const unlimitedToggle = $('#unlimitedToggle').is(':checked');
+            const randomToggle = $('#randomToggle').is(':checked');
 
             let quantityInput = $('#quantityInput').val();
-            const unlimitedToggle = $('#unlimitedToggle').is(':checked');
-
               if (quantityInput === '') {
                 quantityInput = Math.floor(Math.random() * 100) + 1;
               } else {
                 quantityInput = parseInt(quantityInput);
               }
 
-            const mockOptions = [ //добавление опций
-              {
-                type: "RADIO",
-                name: "Color",
-                choices: [
-                { text: "Red", priceModifier: 0, priceModifierType: "ABSOLUTE" },
-                { text: "Blue", priceModifier: 2.0, priceModifierType: "ABSOLUTE"  },
-                { text: "Green", priceModifier: 1.5, priceModifierType: "ABSOLUTE" },
-                ],
-                },
+            let priceInput = $('#priceInput').val();
+              if (priceInput !== '') {
+                priceInput = parseFloat(priceInput);
+              } else {
+                priceInput = parseFloat((Math.random() * 100 + 1).toFixed(2));
+              }  
 
-              {
-                type: "SELECT",
-                name: "Accessories",
-                choices: [
+            //Options array
+            const MOCK_OPTIONS = [
+            {
+              type: "RADIO",
+              name: "Color",
+              choices: [
+                { text: "Red", priceModifier: 0, priceModifierType: "ABSOLUTE" },
+                { text: "Blue", priceModifier: 2.0, priceModifierType: "ABSOLUTE" },
+                { text: "Green", priceModifier: 1.5, priceModifierType: "ABSOLUTE" },
+              ],
+            },
+
+            {
+              type: "SELECT",
+              name: "Accessories",
+              choices: [
                 { text: "Case", priceModifier: 0, priceModifierType: "PERCENT" },
                 { text: "Charger", priceModifier: 3.0, priceModifierType: "PERCENT" },
                 { text: "Headphones", priceModifier: 8.0, priceModifierType: "PERCENT" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "SIZE",
-                name: "Shirt Size",
-                choices: [
+            {
+              type: "SIZE",
+              name: "Shirt Size",
+              choices: [
                 { text: "S", priceModifier: 0, priceModifierType: "ABSOLUTE" },
                 { text: "M", priceModifier: 2.0, priceModifierType: "ABSOLUTE" },
                 { text: "L", priceModifier: 3.5, priceModifierType: "ABSOLUTE" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "RADIO",
-                name: "Color",
-                choices: [
+            {
+              type: "RADIO",
+              name: "Color",
+              choices: [
                 { text: "Black", priceModifier: 0, priceModifierType: "PERCENT" },
                 { text: "White", priceModifier: 1.0, priceModifierType: "PERCENT" },
                 { text: "Gray", priceModifier: 0.5, priceModifierType: "PERCENT" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "SELECT",
-                name: "Coffee Type",
-                choices: [
+            {
+              type: "SELECT",
+              name: "Coffee Type",
+              choices: [
                 { text: "Espresso", priceModifier: 0, priceModifierType: "PERCENT" },
                 { text: "Cappuccino", priceModifier: 1.0, priceModifierType: "PERCENT" },
                 { text: "Latte", priceModifier: 0.5, priceModifierType: "PERCENT" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "SIZE",
-                name: "Extras",
-                choices: [
+            {
+              type: "SIZE",
+              name: "Extras",
+              choices: [
                 { text: "Gift Wrap", priceModifier: 0, priceModifierType: "ABSOLUTE" },
                 { text: "Engraving", priceModifier: 5.0, priceModifierType: "ABSOLUTE" },
                 { text: "Custom Logo", priceModifier: 10.0, priceModifierType: "ABSOLUTE" },
-                ],
-                }, 
-                
-              {
-                type: "SELECT",
-                name: "Material",
-                choices: [
+              ],
+            },
+
+            {
+              type: "SELECT",
+              name: "Material",
+              choices: [
                 { text: "Cotton", priceModifier: 0, priceModifierType: "PERCENT" },
                 { text: "Polyester", priceModifier: 1.5, priceModifierType: "PERCENT" },
                 { text: "Silk", priceModifier: 3.0, priceModifierType: "PERCENT" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "RADIO",
-                name: "Flavor",
-                choices: [
+            {
+              type: "RADIO",
+              name: "Flavor",
+              choices: [
                 { text: "Chocolate", priceModifier: 0, priceModifierType: "ABSOLUTE" },
                 { text: "Vanilla", priceModifier: 1.0, priceModifierType: "ABSOLUTE" },
                 { text: "Strawberry", priceModifier: 1.5, priceModifierType: "ABSOLUTE" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "SELECT",
-                name: "Operating System",
-                choices: [
+            {
+              type: "SELECT",
+              name: "Operating System",
+              choices: [
                 { text: "Windows", priceModifier: 0, priceModifierType: "PERCENT" },
                 { text: "MacOS", priceModifier: 5.0, priceModifierType: "PERCENT" },
                 { text: "Linux", priceModifier: 3.0, priceModifierType: "PERCENT" },
-                ],
-                },
+              ],
+            },
 
-              {
-                type: "RADIO",
-                name: "Ingredients",
-                choices: [
+            {
+              type: "RADIO",
+              name: "Ingredients",
+              choices: [
                 { text: "Lettuce", priceModifier: 0, priceModifierType: "ABSOLUTE" },
                 { text: "Tomatoes", priceModifier: 0.5, priceModifierType: "ABSOLUTE" },
                 { text: "Onions", priceModifier: 0.5, priceModifierType: "ABSOLUTE" },
-                ],
-                },
-            ];
+              ],
+            },
+          ];
 
-            const numberOfOptions = Math.floor(Math.random() * 3 + 1); //задаем какое количество задавать в массив
-            const randomOptions = []; //создаем пустой массив
-            let i = 0; // номер итерации с которого начинается while loop
+            // add option
+            const numberOfOptions = Math.floor(Math.random() * 3 + 1);
+            const randomOptions = [];
+            let i = 0;
             while (i < numberOfOptions) {
-                randomOptions.push(mockOptions.pop());
-                i++;
+              randomOptions.push(MOCK_OPTIONS.pop());
+              i++;
             }
 
-
-
-            // Создаем объект с полями продукта
-            const productData = {
+            return (productData = {
               name: name,
               weight: weight,
               dimensions: dimensions,
               price: priceInput,
               quantity: quantityInput,
-              enabled: enabledToggle,
-              unlimited: unlimitedToggle,
+              enabled: randomToggle ? getRandomTrueFalse() : enabledToggle,
+              unlimited: randomToggle ? getRandomTrueFalse() : unlimitedToggle,
               options: optionsToggle ? randomOptions : [],
-            };
-
-            // Запрос на добавление продукта
-            $.ajax({
-              url: url,
-              type: 'POST',
-              headers: headers,
-              data: JSON.stringify(productData),
-              success: function (response) {
-                count++;
-                if (count === totalProductToCreate) {
-                   spinner.hide();
-                 }
-                
-                $('#resultContainer').text(
-                  'Created products: ' + count + '/' + totalProductToCreate,
-                );
-                createVariation(response.id, randomOptions); // (тут добавить if - нужна или нет вариация) 
-                  if (this.checked) {
-                  $('#variationsToggle').prop('disabled', false);
-                  // (тут добавить if - нужна или нет вариация)
-                  if ($('#variationsToggle').is(':checked')) {
-                    // Добавить код для обработки добавления вариаций
-                  }
-                } else {
-                  $('#variationsToggle').prop('checked', false);
-                  $('#variationsToggle').prop('disabled', true);
-                }
-                
-                },
-
-              error: function (error) {
-                count++;
-                if (count === totalProductToCreate) {
-                   spinner.hide();
-                 }
-
-                $('#resultContainer').append(
-                  '<p>Error adding product: ' +
-                    error.responseJSON.errorMessage +
-                    '</p>',  
-                );
-              },
+              categoryIds: categoryIds.length > 0 ? [categoryIds[Math.floor(Math.random() * categoryIds.length)],]: [],
             });
           }
+
+          async function saveAll() {
+            let count = 0;
+            const batchSize = 50;
+            const delay = 2000;
+            let totalProductToCreate = parseInt($('#productInput').val());
+
+            if (!totalProductToCreate || isNaN(totalProductToCreate)) {
+              totalProductToCreate = Math.floor(Math.random() * 100) + 1;
+              // console.log (totalProductToCreate);
+            }
+
+            $('#generateButton').prop('disabled', true);
+
+            for (let i = 0; i < totalProductToCreate; i++) {
+              const productData = prepareValue();
+
+            const request = 
+              fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(productData),
+              })
+                .then((response) => response.json())
+                .then((response) => {
+                  count++;
+
+                  const spinner = document.getElementById('spinner');
+
+                  $('#resultContainer').text(
+                    'Created products: ' + count + '/' + totalProductToCreate
+                  );
+
+                  if (variationsToggle)
+                    createVariation(response.id, productData.options);
+                })
+
+              .catch((error) => {
+                  console.error('Error during fetch request:', error);
+                });
+
+              await request;
+
+              if ((i + 1) % batchSize === 0 && i !== totalProductToCreate - 1) {
+                await new Promise((resolve) => setTimeout(resolve, delay));
+            //    console.log('Pause after batch:', i + 1);
+              }  
+            }
+                $('#spinner').hide();
+                $('#generateButton').prop('disabled', false);
+          }
+          saveAll();
         });
       });
-      // Заметки: 
-      // проверить как будет работать на разных планах
-      // можно создать аут оф сток товар: тогл анлимитед выкл + квантити = 0 (надо об этом рассказать как-то пользователю)
-
-      // Если останется время:
-      //добваить рандомное добавление картинок товара
-      //описание товара
-      //адаптивность для блоков, выровнять инпуты
-      //уменьшить размер и впихнуть на страницу без прокрутки + уменьшить ширину блоков
     </script>
   </body>
-</html> 
-
+</html>
