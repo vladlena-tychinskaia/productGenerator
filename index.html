@@ -147,6 +147,51 @@
 
       <div class="block">
         <div class="block-header">
+          <h3>Additional Fields:</h3>
+        </div>
+
+        <div class="form-group">
+          <div class="toggle-group">
+            <label for="additionalInput"
+              >Manage pricing options</label
+            >
+            <!-- Rounded switch -->
+            <label class="switch">
+              <input type="checkbox" id="additionalToggle" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group additional-block" style="display: none">
+          <div class="form-group">
+            <div class="toggle-group">
+              <label for="nameYourPriceEnabled">Pay What You Want:</label>
+              <!-- Rounded switch -->
+              <label class="switch">
+                <input type="checkbox" id="nameYourPriceEnabled" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group additional-block" style="display: none">
+          <div class="form-group">
+            <div class="toggle-group">
+              <label for="wholesalePrices">Bulk discount pricing:</label>
+              <!-- Rounded switch -->
+              <label class="switch">
+                <input type="checkbox" id="wholesalePrices" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
           <h3>Product Options:</h3>
         </div>
 
@@ -309,6 +354,53 @@
             $('#enabledToggle').prop('disabled', false);
           }
         });
+
+        //additional fields toggle
+        $('#additionalToggle').change(function () {
+          if (this.checked) {
+            $('.additional-block').show();
+
+          } else {
+            $('.additional-block').hide();
+          }
+        });
+
+        //price options
+        let nameYourPriceEnabled = false;
+            $('#nameYourPriceEnabled').change(function () {
+                nameYourPriceEnabled = this.checked;
+              });
+//         //bulk discount      
+//         let useWholesalePrices = false;
+//             $('#wholesalePrices').change(function () {
+//                useWholesalePrices = this.checked;
+//               });   
+
+//         // Функция для генерации случайных значений
+//         function getRandomValue(min, max) {
+//           return Math.floor(Math.random() * (max - min + 1)) + min;
+//         }
+
+//         //генерации оптовых цен
+//         const wholesalePriceArrays = [
+//   [
+//     { quantity: 10, price: basePrice * 0.9 },
+//     { quantity: 30, price: basePrice * 0.8 },
+//     { quantity: 50, price: basePrice * 0.7 },
+//   ],
+//   [
+//     { quantity: 5, price: basePrice * 0.85 },
+//     { quantity: 15, price: basePrice * 0.75 },
+//     { quantity: 25, price: basePrice * 0.65 },
+//   ],
+//   // Другие варианты массивов оптовых цен
+// ];
+
+// // Функция для выбора случайного массива оптовых цен
+// function getRandomWholesalePrices() {
+//   const randomIndex = Math.floor(Math.random() * wholesalePriceArrays.length);
+//   return wholesalePriceArrays[randomIndex];
+// }   
 
         //categories
         $('#categoryToggle').change(function () {
@@ -607,6 +699,39 @@
               i++;
             }
 
+            const nameYourPriceToggleState = document.getElementById('nameYourPriceEnabled').checked;
+
+            // function createProductWithWholesalePrices() {
+  // // Получаем значения из формы или генерируем случайные значения
+  // let quantityInput = $('#quantityInput').val();
+  // let priceInput = $('#priceInput').val();
+
+  // // Проверяем, включен ли тогл оптовых цен
+  // const useWholesalePrices = $('#wholesalePrices').is(':checked');
+
+  // // Если тогл оптовых цен включен, то генерируем оптовые цены
+  // if (useWholesalePrices) {
+  //   const selectedWholesalePrices = getRandomWholesalePrices();
+  
+  // // Генерируем оптовые цены на основе выбранного массива
+  // wholesalePrices = selectedWholesalePrices;
+  // quantityInput = getRandomValue(1, 100);
+  // priceInput = (Math.random() * 100 + 1).toFixed(2);
+  // } else {
+  //   // Если тогл выключен, то проверяем и обрабатываем значения из входных полей
+  //   if (quantityInput === '') {
+  //     quantityInput = Math.floor(Math.random() * 100) + 1;
+  //   } else {
+  //     quantityInput = parseInt(quantityInput);
+  //   }
+
+  //   if (priceInput === '') {
+  //     priceInput = parseFloat((Math.random() * 100 + 1).toFixed(2));
+  //   } else {
+  //     priceInput = parseFloat(priceInput);
+  //   }
+  // }
+
             return (productData = {
               name: name,
               weight: weight,
@@ -616,6 +741,8 @@
               enabled: randomToggle ? getRandomTrueFalse() : enabledToggle,
               unlimited: randomToggle ? getRandomTrueFalse() : unlimitedToggle,
               options: optionsToggle ? randomOptions : [],
+              nameYourPriceEnabled: nameYourPriceToggleState,
+              // wholesalePrices: wholesalePrices,
               categoryIds: categoryIds.length > 0 ? [categoryIds[Math.floor(Math.random() * categoryIds.length)],]: [],
             });
           }
