@@ -176,18 +176,18 @@
           </div>
         </div>
 
-        <div class="form-group additional-block" style="display: none">
+        <!-- <div class="form-group additional-block" style="display: none">
           <div class="form-group">
             <div class="toggle-group">
-              <label for="wholesalePrices">Bulk discount pricing:</label>
+              <label for="wholesalePrices">Bulk discount pricing:</label> -->
               <!-- Rounded switch -->
-              <label class="switch">
+              <!-- <label class="switch">
                 <input type="checkbox" id="wholesalePrices" />
                 <span class="slider round"></span>
               </label>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="block">
@@ -292,6 +292,23 @@
             'Comic', 'Farcical', 'Ludicrous'
           ];
 
+      //random sku
+
+      function generateRandomSKU(length) {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let sku = '';
+
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          sku += characters.charAt(randomIndex);
+        }
+
+        return sku;
+      }
+
+          // Генерация SKU длиной не более 7 символов
+      // const generatedSKU = generateRandomSKU(7);
+
       //helper for rndm toggle
       function getRandomTrueFalse() {
         return Math.random() >= 0.5;
@@ -369,38 +386,7 @@
         let nameYourPriceEnabled = false;
             $('#nameYourPriceEnabled').change(function () {
                 nameYourPriceEnabled = this.checked;
-              });
-//         //bulk discount      
-//         let useWholesalePrices = false;
-//             $('#wholesalePrices').change(function () {
-//                useWholesalePrices = this.checked;
-//               });   
-
-//         // Функция для генерации случайных значений
-//         function getRandomValue(min, max) {
-//           return Math.floor(Math.random() * (max - min + 1)) + min;
-//         }
-
-//         //генерации оптовых цен
-//         const wholesalePriceArrays = [
-//   [
-//     { quantity: 10, price: basePrice * 0.9 },
-//     { quantity: 30, price: basePrice * 0.8 },
-//     { quantity: 50, price: basePrice * 0.7 },
-//   ],
-//   [
-//     { quantity: 5, price: basePrice * 0.85 },
-//     { quantity: 15, price: basePrice * 0.75 },
-//     { quantity: 25, price: basePrice * 0.65 },
-//   ],
-//   // Другие варианты массивов оптовых цен
-// ];
-
-// // Функция для выбора случайного массива оптовых цен
-// function getRandomWholesalePrices() {
-//   const randomIndex = Math.floor(Math.random() * wholesalePriceArrays.length);
-//   return wholesalePriceArrays[randomIndex];
-// }   
+              }); 
 
         //categories
         $('#categoryToggle').change(function () {
@@ -547,6 +533,7 @@
             const animalName = ANIMALS[animalIndex];
             const adjectivesName = ADJECTIVES[adjectivesIndex];
             const name = adjectivesName + ' ' + animalName;
+            const sku = generateRandomSKU(7);
             const categoryIds = [];
             const categoryToggle = $('#categoryToggle').is(':checked');
             if (categoryToggle) {
@@ -734,6 +721,7 @@
 
             return (productData = {
               name: name,
+              sku: sku,
               weight: weight,
               dimensions: dimensions,
               price: priceInput,
